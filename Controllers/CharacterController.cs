@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using net_template_web_api.Dtos.Character;
 using net_template_web_api.Services.CharacterService;
 // also we can use global using
 
@@ -21,19 +22,19 @@ namespace net_template_web_api.Controllers
         }
 
         [HttpGet]
-        public ActionResult<Character[]> Get() {
-            var characters = _characterService.GetCharacters();
+        public async Task<ActionResult<ServiceResponse<GetCharacterDto[]>>> Get() {
+            var characters = await _characterService.GetCharacters();
             return Ok(characters);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Character> GetById(int id) {
+        public ActionResult<ServiceResponse<GetCharacterDto>> GetById(int id) {
             var character = _characterService.GetCharacterById(id);
             return Ok(character);
         }
 
         [HttpPost]
-        public ActionResult<Character> Create(Character character) {
+        public ActionResult<ServiceResponse<Character>> Create(AddCharacterDto character) {
             _characterService.AddCharacter(character);
             return Ok();
         }
