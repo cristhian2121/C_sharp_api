@@ -38,5 +38,25 @@ namespace net_template_web_api.Controllers
             _characterService.AddCharacter(character);
             return Ok();
         }
+
+        [HttpPut("{id}")]
+        public ActionResult<ServiceResponse<GetCharacterDto>> Update(UpdateCharacterDto character, int id) {
+            var res = _characterService.updateCharacter(character, id);
+            if(!res.success){
+                return NotFound(res);
+            }
+
+            return Ok(res);
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult<ServiceResponse<GetCharacterDto>> Delete(UpdateCharacterDto character, int id) {
+            var res = _characterService.deleteCharacter(id);
+            if(!res.success){
+                return NotFound(res);
+            }
+
+            return Ok(res);
+        }
     }
 }

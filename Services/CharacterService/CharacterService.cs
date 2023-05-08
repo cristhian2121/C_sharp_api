@@ -58,9 +58,64 @@ namespace net_template_web_api.Services.CharacterService
          return serviceResponse;
       }
 
-      public ServiceResponse<Character> updateCharacter(Character character, int id)
+      public ServiceResponse<GetCharacterDto> updateCharacter(UpdateCharacterDto characterUpdated, int id)
       {
-         throw new NotImplementedException();
+         var serviceResponse = new ServiceResponse<GetCharacterDto>();
+
+         try
+         {
+            var character = characters.FirstOrDefault(c => c.Id == id); 
+
+            if(character is null){
+               throw new Exception($"Character {id} not found");
+            }
+
+            // Fill with automapper
+            _mapper.Map(characterUpdated, character);
+            
+            // Fill object 
+            // character.Name = characterUpdated.Name;
+            // character.HitPoints = characterUpdated.HitPoints;
+            // character.Strength = characterUpdated.Strength;
+            // character.Defense = characterUpdated.Defense;
+            // character.Intelligence = characterUpdated.Intelligence;
+            // character.Class = characterUpdated.Class;
+            
+            serviceResponse.data = _mapper.Map<GetCharacterDto>(character);
+         }
+         catch (System.Exception ex)
+         {
+            serviceResponse.success = false;
+            serviceResponse.message = ex.Message;
+         }
+         
+
+         return serviceResponse;
       }
+   
+      public ServiceResponse<GetCharacterDto?> deleteCharacter(int id){
+         var serviceResponse = new ServiceResponse<GetCharacterDto?>();
+
+         try
+         {
+            // find by id
+            var character = characters.Find(c => c.Id == id);
+            if(character is null){
+               throw new Exception($"Character {id} not found");
+            }
+
+            characters.Remove(character);
+            serviceResponse.data = null;
+
+         }
+         catch (System.Exception ex)
+         {
+            serviceResponse.success = false; 
+            serviceResponse.message = ex.Message;
+         }
+
+         return serviceResponse;
+      }
+
    }
 }

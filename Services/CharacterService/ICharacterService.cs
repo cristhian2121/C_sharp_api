@@ -12,7 +12,8 @@ namespace net_template_web_api.Services.CharacterService
         Task<ServiceResponse<List<GetCharacterDto>>> GetCharacters();
         ServiceResponse<GetCharacterDto> GetCharacterById(int id);
         ServiceResponse<GetCharacterDto> AddCharacter(AddCharacterDto character);
-        ServiceResponse<Character> updateCharacter(Character character, int id);
+        ServiceResponse<GetCharacterDto> updateCharacter(UpdateCharacterDto character, int id);
+        ServiceResponse<GetCharacterDto?> deleteCharacter(int id);
 
     }
 }

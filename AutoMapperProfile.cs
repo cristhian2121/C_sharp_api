@@ -13,6 +13,7 @@ namespace net_template_web_api
         {
             CreateMap<Character, GetCharacterDto>();
             CreateMap<AddCharacterDto, Character>();
+            CreateMap<UpdateCharacterDto, Character>();
         }   
     }
 }
