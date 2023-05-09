@@ -1,6 +1,6 @@
 version: "3.8"
 services:
-  web:
+  api:
     build:
       context: .
       dockerfile: Dockerfile
@@ -9,12 +9,16 @@ services:
     depends_on:
       - db
   db:
-    image: "mcr.microsoft.com/mssql/server"
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    container_name: mssql
     environment:
       - ACCEPT_EULA=Y
       - MSSQL_SA_PASSWORD=Test123.
-      - MSSQL_PID=Developer
-      - MSSQL_TCP_PORT=1433
+      - MSSQL_DB=api_test
+      # - MSSQL_PID=Developer
+      # - MSSQL_TCP_PORT=1433
+      - MSSQL_MEMORY_LIMIT_MB=2048 # Set a memory limit for SQL Server
+      # - MSSQL_MAX_MEMORY_MB=512" # Limit SQL Server memory to 512 MB
     ports:
       - "1433:1433"
     volumes:
