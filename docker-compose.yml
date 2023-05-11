@@ -8,6 +8,8 @@ services:
       - "80:80"
     depends_on:
       - db
+    volumes:
+      - ./:/app:rw
   db:
     image: mcr.microsoft.com/azure-sql-edge:latest
     container_name: mssql
@@ -17,11 +19,11 @@ services:
       - MSSQL_DB=api_test
       # - MSSQL_PID=Developer
       # - MSSQL_TCP_PORT=1433
-      - MSSQL_MEMORY_LIMIT_MB=2048 # Set a memory limit for SQL Server
+      # - MSSQL_MEMORY_LIMIT_MB=2048 # Set a memory limit for SQL Server
       # - MSSQL_MAX_MEMORY_MB=512" # Limit SQL Server memory to 512 MB
     ports:
       - "1433:1433"
-    volumes:
-      - db-Csharp:/var/opt/mssql/data/
+    # volumes:
+    #   - db-Csharp:/var/opt/mssql/data/
 volumes:
   db-Csharp:
