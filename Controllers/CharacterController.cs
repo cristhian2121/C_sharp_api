@@ -28,20 +28,20 @@ namespace net_template_web_api.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<ServiceResponse<GetCharacterDto>> GetById(int id) {
-            var character = _characterService.GetCharacterById(id);
+        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> GetById(int id) {
+            var character = await _characterService.GetCharacterById(id);
             return Ok(character);
         }
 
         [HttpPost]
-        public ActionResult<ServiceResponse<Character>> Create(AddCharacterDto character) {
-            _characterService.AddCharacter(character);
-            return Ok();
+        public async Task<ActionResult<ServiceResponse<Character>>> Create(AddCharacterDto character) {
+            var characters = await _characterService.AddCharacter(character);
+            return Ok(character);
         }
 
         [HttpPut("{id}")]
-        public ActionResult<ServiceResponse<GetCharacterDto>> Update(UpdateCharacterDto character, int id) {
-            var res = _characterService.updateCharacter(character, id);
+        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> Update(UpdateCharacterDto character, int id) {
+            var res = await _characterService.updateCharacter(character, id);
             if(!res.success){
                 return NotFound(res);
             }
@@ -50,8 +50,8 @@ namespace net_template_web_api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<ServiceResponse<GetCharacterDto>> Delete(UpdateCharacterDto character, int id) {
-            var res = _characterService.deleteCharacter(id);
+        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> Delete(UpdateCharacterDto character, int id) {
+            var res = await _characterService.deleteCharacter(id);
             if(!res.success){
                 return NotFound(res);
             }

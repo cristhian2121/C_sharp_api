@@ -10,10 +10,10 @@ namespace net_template_web_api.Services.CharacterService
     public interface ICharacterService
     {
         Task<ServiceResponse<List<GetCharacterDto>>> GetCharacters();
-        ServiceResponse<GetCharacterDto> GetCharacterById(int id);
-        ServiceResponse<GetCharacterDto> AddCharacter(AddCharacterDto character);
-        ServiceResponse<GetCharacterDto> updateCharacter(UpdateCharacterDto character, int id);
-        ServiceResponse<GetCharacterDto?> deleteCharacter(int id);
+        Task<ServiceResponse<GetCharacterDto>> GetCharacterById(int id);
+        Task<ServiceResponse<List<GetCharacterDto>>> AddCharacter(AddCharacterDto character);
+        Task<ServiceResponse<GetCharacterDto>> updateCharacter(UpdateCharacterDto character, int id);
+        Task<ServiceResponse<GetCharacterDto?>> deleteCharacter(int id);
 
     }
 }
