@@ -109,12 +109,14 @@ namespace net_template_web_api.Services.CharacterService
          try
          {
             // find by id
-            var character = characters.Find(c => c.Id == id);
+            var character = await _context.Characters.FirstAsync(c => c.Id == id);
             if(character is null){
                throw new Exception($"Character {id} not found");
             }
 
-            characters.Remove(character);
+            _context.Characters.Remove(character);
+            await _context.SaveChangesAsync();
+
             serviceResponse.data = null;
 
          }
